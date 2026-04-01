@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SUCCESS RENTAL MAN2 X VOY</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+    <style>
+        /* TEMA ELEGAN: DEEP GREEN JADE + GOLD (NO BRUTALISM) */
+        :root {
+            --bg-body: #083b2e; /* Darker Deep Green Jade */
+            --bg-card: rgba(4, 38, 31, 0.7); /* Glassmorphism Jade */
+            --primary: #d4af37; /* Gold Metallic */
+            --primary-dark: #aa841c; 
+            --secondary: #e74c3c; /* Elegant Red for cancel/reject */
+            --text-main: #f1f2f6; /* Off-white for text */
+            --text-muted: #a4b0be;
+            --gold-gradient: linear-gradient(135deg, #e5c058 0%, #d4af37 50%, #aa841c 100%);
+            --soft-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --glow-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            --border-thin: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            margin: 0;
+            padding: 15px;
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* EFEK BLACK VIGNETTE */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 30%, rgba(0,0,0,0.8) 120%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* ORNAMEN BATIK EMAS BERGERAK */
+        .batik-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M50 0 C70 30, 80 50, 100 50 C80 50, 70 70, 50 100 C30 70, 20 50, 0 50 C20 50, 30 30, 50 0 Z" fill="none" stroke="%23d4af37" stroke-width="1.5" opacity="0.25"/><circle cx="50" cy="50" r="8" fill="%23d4af37" opacity="0.25"/></svg>'); 
+            background-repeat: repeat;
+            background-size: 120px;
+            z-index: -2;
+            pointer-events: none;
+            animation: moveBatik 30s linear infinite;
+        }
+
+        @keyframes moveBatik {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            margin-top: 40px;
+            padding-bottom: 50px;
+            transition: max-width 0.4s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        .container.admin-active {
+            max-width: 1200px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .title-box {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: var(--border-thin);
+            box-shadow: var(--soft-shadow);
+            padding: 25px 40px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        h1 {
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin: 0;
+            font-size: 2rem;
+            line-height: 1.2;
+            color: var(--text-main);
+        }
+
+        h1 span {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 4px 10px rgba(212, 175, 55, 0.2);
+        }
+
+        p.subtitle {
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-top: 15px;
+            color: var(--bg-body);
+            display: inline-block;
+            padding: 8px 24px;
+            background: var(--gold-gradient);
+            border-radius: 30px;
+            letter-spacing: 1px;
+            box-shadow: var(--glow-shadow);
+        }
+
+        .info-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: var(--border-thin);
+            backdrop-filter: blur(8px);
+            margin-bottom: 30px;
+            border-radius: 12px;
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 14px 0;
+            box-shadow: var(--soft-shadow);
+        }
+
+        .marquee-text {
+            display: inline-block;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--primary);
+            letter-spacing: 1px;
+            animation: marquee 18s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .card-example {
+            background-color: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: var(--border-thin);
+            box-shadow: var(--soft-shadow);
+            padding: 25px;
+            margin-bottom: 40px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .example-badge {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--primary);
+            padding: 8px 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border-radius: 30px;
+            display: inline-block;
+            border: 1px solid var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .example-img {
+            width: 100%;
+            max-width: 220px;
+            height: auto;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin: 10px auto;
+            display: block;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+        }
+
+        .cta-container {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        /* TOMBOL ELEGAN */
+        .btn-neo {
+            background: var(--gold-gradient);
+            color: #111;
+            font-size: 1.1rem;
+            font-weight: 800;
+            padding: 18px 45px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+            letter-spacing: 1.5px;
+            width: 100%;
+            max-width: 320px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-neo:hover {
+            box-shadow: 0 12px 25px rgba(212, 175, 55, 0.5);
+            transform: translateY(-3px);
+            filter: brightness(1.1);
+        }
+
+        .btn-neo:active {
+            transform: translateY(1px) scale(0.98);
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+        }
+
+        /* TOMBOL SECONDARY / REJECT */
+        .btn-reject {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.3);
+        }
+        .btn-reject:hover {
+            box-shadow: 0 12px 25px rgba(231, 76, 60, 0.5);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: rgba(6, 52, 41, 0.95);
+            width: 100%;
+            max-width: 450px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 24px;
+            padding: 35px 30px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+            transform: translateY(30px) scale(0.95);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: var(--text-main);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .close-modal {
+            background: rgba(255,255,255,0.05);
+            border: none;
+            color: var(--text-muted);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+        .close-modal:hover {
+            background: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .required-star {
+            color: var(--secondary);
+            font-size: 1rem;
+            margin-left: 3px;
+        }
+
+        .badge-optional {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            padding: 4px 8px;
+            float: right;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 16px 16px 16px 45px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.25);
+            color: #fff;
+            font-weight: 500;
+            font-size: 1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        select option {
+            background: var(--bg-body);
+            color: #fff;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary);
+            background: rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2), inset 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        input::placeholder {
+            color: rgba(255,255,255,0.3);
+            font-weight: 400;
+        }
+
+        input:disabled {
+            background: rgba(0,0,0,0.1);
+            color: rgba(255,255,255,0.2);
+            cursor: not-allowed;
+            border-style: dashed;
+        }
+
+        input[type="file"] {
+            padding: 12px;
+            padding-left: 12px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border: 1px dashed rgba(212, 175, 55, 0.5);
+            background: rgba(212, 175, 55, 0.05);
+            text-align: center;
+            color: var(--primary);
+        }
+
+        input[type="file"]:focus {
+            border-color: var(--primary);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .microcopy {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        .bank-group-box {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 30px 20px 15px 20px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            margin-top: 25px;
+            position: relative;
+        }
+
+        .bank-group-title {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--gold-gradient);
+            padding: 4px 16px;
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            border-radius: 20px;
+            box-shadow: var(--glow-shadow);
+        }
+
+        .form-divider {
+            margin: 35px 0 25px 0;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            position: relative;
+        }
+
+        .form-divider span {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #063429;
+            padding: 0 15px;
+            color: var(--primary);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        #previewContainer {
+            display: none;
+            margin-top: 15px;
+            text-align: center;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        #imgPreview {
+            max-width: 100%;
+            max-height: 200px;
+            display: block;
+            margin: 0 auto;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .admin-float-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: rgba(4, 38, 31, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 9999;
+            box-shadow: var(--soft-shadow);
+            transition: 0.3s ease;
+        }
+
+        .admin-float-btn:hover {
+            transform: scale(1.1);
+            border-color: var(--primary);
+            box-shadow: var(--glow-shadow);
+        }
+
+        .admin-float-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--primary);
+            transition: 0.3s ease;
+        }
+
+        #adminPanel {
+            display: none;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 30px;
+            box-shadow: var(--soft-shadow);
+            color: var(--text-main);
+        }
+
+        .admin-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-main);
+        }
+
+        .stat-count {
+            background: var(--gold-gradient);
+            color: #000;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            box-shadow: var(--glow-shadow);
+        }
+
+        .reports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            align-items: start;
+        }
+
+        .report-item {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 25px;
+            border-radius: 16px;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: 0.3s ease;
+        }
+
+        .report-item:hover {
+            background: rgba(0, 0, 0, 0.4);
+            border-color: rgba(212, 175, 55, 0.5);
+            box-shadow: var(--soft-shadow);
+            transform: translateY(-5px);
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 15px;
+        }
+
+        .bank-info-box-admin {
+            background: rgba(255,255,255,0.03);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .bank-info-box-admin .bank-title {
+            font-size: 0.75rem;
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        .bank-info-box-admin .bank-number {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #fff;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+
+        .bank-info-box-admin .bank-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        .admin-thumb-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(0,0,0,0.3);
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 20px;
+        }
+
+        .preview-img-admin {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid rgba(212,175,55,0.4);
+            cursor: zoom-in;
+            transition: 0.3s;
+        }
+        .preview-img-admin:hover {
+            border-color: var(--primary);
+            box-shadow: var(--glow-shadow);
+        }
+
+        .notif-overlay,
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 11000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-overlay {
+            z-index: 12000;
+            cursor: zoom-out;
+            padding: 20px;
+        }
+
+        .lightbox-overlay img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 12px;
+            box-shadow: var(--soft-shadow);
+            object-fit: contain;
+        }
+
+        .notif-box {
+            background: rgba(6, 52, 41, 0.95);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            padding: 40px 30px;
+            width: 90%;
+            max-width: 380px;
+            text-align: center;
+            border-radius: 24px;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: var(--text-main);
+        }
+
+        .notif-box.show {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .notif-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            display: block;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+        }
+
+        .notif-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            display: block;
+            text-transform: uppercase;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+
+        .notif-message {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            display: block;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .loading-bar-wrapper {
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin-top: 25px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .loading-bar-modal {
+            width: 40%;
+            height: 100%;
+            background: var(--gold-gradient);
+            border-radius: 10px;
+            animation: moveBar 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes moveBar {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(200%); }
+        }
+
+        #patternLockModal .notif-box {
+            padding: 40px 20px;
+        }
+
+        .pattern-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            position: relative;
+            width: 240px;
+            height: 240px;
+            margin: 0 auto;
+            touch-action: none;
+        }
+
+        .pattern-dot {
+            width: 16px;
+            height: 16px;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            border-radius: 50%;
+            margin: auto;
+            position: relative;
+            z-index: 2;
+            transition: all 0.2s ease;
+        }
+
+        .pattern-dot.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: scale(1.4);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+        }
+
+        .pattern-dot.error {
+            background: var(--secondary);
+            border-color: var(--secondary);
+            transform: scale(1.4);
+            box-shadow: 0 0 15px rgba(231, 76, 60, 0.8);
+        }
+
+        #patternSvg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            overflow: visible;
+        }
+        
+        .status-badge {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--primary);
+            padding: 6px 14px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-badge.new {
+            background: rgba(46, 204, 113, 0.1);
+            color: #2ecc71;
+            border-color: rgba(46, 204, 113, 0.3);
+        }
+        
+        .status-badge.reject {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+            border-color: rgba(231, 76, 60, 0.3);
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="batik-overlay"></div>
+
+    <div id="lightbox" class="lightbox-overlay" onclick="closeLightbox()">
+        <img id="lightboxImg" src="" alt="Bukti Zoom">
+    </div>
+
+    <div id="patternLockModal" class="notif-overlay">
+        <div class="notif-box" id="patternBox">
+            <h3 style="margin-top:0; margin-bottom: 35px; color: var(--primary); font-weight:800; font-size: 1.3rem; letter-spacing: 1px; text-transform: uppercase;">
+                Akses Admin</h3>
+            <div class="pattern-grid" id="patternGrid">
+                <svg id="patternSvg"></svg>
+                <div class="pattern-dot" data-val="1"></div>
+                <div class="pattern-dot" data-val="2"></div>
+                <div class="pattern-dot" data-val="3"></div>
+                <div class="pattern-dot" data-val="4"></div>
+                <div class="pattern-dot" data-val="5"></div>
+                <div class="pattern-dot" data-val="6"></div>
+                <div class="pattern-dot" data-val="7"></div>
+                <div class="pattern-dot" data-val="8"></div>
+                <div class="pattern-dot" data-val="9"></div>
+            </div>
+            <p id="patternMsg" style="color:var(--text-muted); font-size:0.85rem; margin-top:35px; font-weight:500;">Tarik garis pola rahasia</p>
+            <button class="btn-neo btn-reject" style="margin-top:15px; padding: 12px; font-size:0.9rem;" onclick="closePatternLock()">BATAL</button>
+        </div>
+    </div>
+
+    <div id="loadingModal" class="notif-overlay">
+        <div class="notif-box show">
+            <span class="notif-icon">⏳</span>
+            <span class="notif-title">MEMPROSES...</span>
+            <p class="notif-message">Harap tunggu sebentar, sedang mengamankan data.</p>
+            <div class="loading-bar-wrapper">
+                <div class="loading-bar-modal"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="customNotif" class="notif-overlay">
+        <div class="notif-box" id="notifBox">
+            <span class="notif-icon" id="notifIcon">✨</span>
+            <span class="notif-title" id="notifTitle">BERHASIL!</span>
+            <span class="notif-message" id="notifMsg">Pesan sukses terkirim.</span>
+            <button class="btn-neo" style="width: 100%; margin-top:10px;" id="notifBtn" onclick="closeNotif()">LANJUTKAN</button>
+        </div>
+    </div>
+
+    <button class="admin-float-btn" onclick="toggleAdmin()" title="Mode Admin">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.7 7l3.3 3.3L7 20.3c-.6.6-1.5.6-2.1 0l-1.2-1.2c-.6-.6-.6-1.5 0-2.1L13.7 7zm5.5-2.7l-1.5 1.5-3.3-3.3 1.5-1.5c1-1 2.6-1 3.6 0l-1.4 1.4.6.6 1.4-1.4c1 1 1 2.6 0 3.6-.8.8-1.5.1-.9-.9zM3 21l3-3-2-1-1 2 1 1z" />
+        </svg>
+    </button>
+
+    <div class="container" id="mainContainer">
+        <header>
+            <div class="title-box">
+                <h1>SUCCESS<br><span>RENTAL</span></h1>
+                <h1 style="font-size: 1.2rem; margin-top: 8px; font-weight: 600; color:var(--text-muted); letter-spacing: 3px;">MAN2 X VOY</h1>
+            </div>
+            <br>
+            <p class="subtitle">FAST RESPONSE SYSTEM</p>
+        </header>
+
+        <div class="info-box">
+            <div class="marquee-text">
+                ✨ PENGUMUMAN: Laporan yang masuk di sini diproses secara otomatis. Tidak perlu konfirmasi manual ke admin. ✨
+            </div>
+        </div>
+
+        <div class="card-example">
+            <div class="example-badge">PANDUAN BUKTI VALID</div>
+            <p style="font-weight: 500; font-size: 0.9rem; margin-top: 0; margin-bottom: 20px; color: var(--text-muted);">
+                Pastikan screenshot menampilkan <b>full chat</b> & <b>data email</b> terlihat jelas.
+            </p>
+            <img src="contoh.png" alt="Contoh" class="example-img"
+                onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend', `<p style='color:var(--text-muted); font-size:0.85rem; font-style:italic; padding: 20px; border: 1px dashed rgba(255,255,255,0.2); border-radius:12px;'>[Preview gambar panduan tidak tersedia]</p>`)">
+        </div>
+
+        <div class="cta-container">
+            <button class="btn-neo" onclick="openFormModal()">
+                BUAT LAPORAN
+            </button>
+        </div>
+
+        <div id="formModal" class="modal-overlay">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">FORM LAPORAN</h3>
+                    <button class="close-modal" onclick="closeFormModal()">✕</button>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Akun <span class="required-star">*</span></label>
+                    <div class="input-with-icon">
+                        <span class="input-icon">📧</span>
+                        <input type="email" id="email" placeholder="contoh: budi@gmail.com" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>No. WhatsApp <span class="required-star">*</span></label>
+                    <div class="input-with-icon">
+                        <span class="input-icon">📱</span>
+                        <input type="tel" id="telepon" placeholder="08xxxxx atau 628xxxxx" required>
+                    </div>
+                    <span class="microcopy">Diperlukan untuk konfirmasi pencairan.</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Status Akun <span class="required-star">*</span></label>
+                    <div class="input-with-icon">
+                        <span class="input-icon">⚡</span>
+                        <select id="status">
+                            <option value="New Acc">New Acc (Wajib jika baru)</option>
+                            <option value="Unrestric New">Unrestric New (Pulih dari restrict)</option>
+                            <option value="Unrestric">Unrestric (Akun lama)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Kode Inviter <span class="badge-optional">OPSIONAL</span></label>
+                    <div class="input-with-icon">
+                        <span class="input-icon">🎟️</span>
+                        <input type="text" id="inviter" placeholder="Masukkan jika ada">
+                    </div>
+                </div>
+
+                <div class="bank-group-box">
+                    <div class="bank-group-title">REKENING PENCAIRAN</div>
+
+                    <div class="form-group" style="margin-top: 15px;">
+                        <label>Bank / E-Wallet <span class="required-star">*</span></label>
+                        <div class="input-with-icon">
+                            <span class="input-icon">🏦</span>
+                            <select id="bankChoice">
+                                <option value="SEABANK">SEABANK (Sangat Diutamakan)</option>
+                                <option value="OTHER">Bank / E-Wallet Lainnya...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="otherBankContainer" style="display: none;">
+                        <label>Nama Bank/E-Wallet <span class="required-star">*</span></label>
+                        <div class="input-with-icon">
+                            <span class="input-icon">✍️</span>
+                            <input type="text" id="bankNameOther" placeholder="Cth: BCA / DANA">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Atas Nama <span class="required-star">*</span></label>
+                        <div class="input-with-icon">
+                            <span class="input-icon">👤</span>
+                            <input type="text" id="accName" placeholder="Sesuai buku tabungan" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label>No. Rekening <span class="required-star">*</span></label>
+                        <div class="input-with-icon">
+                            <span class="input-icon">🔢</span>
+                            <input type="number" id="accNumber" placeholder="Cth: 12345678" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-divider"><span>BUKTI TRANSAKSI</span></div>
+
+                <input type="hidden" id="tanggal">
+
+                <div class="form-group">
+                    <label>Upload Screenshot <span class="required-star">*</span></label>
+                    <input type="file" id="buktiImg" accept="image/*">
+
+                    <div id="previewContainer">
+                        <p style="font-size:0.75rem; font-weight:600; margin-bottom:12px; color: var(--text-muted); letter-spacing: 1px;">PREVIEW BUKTI</p>
+                        <img id="imgPreview" src="" alt="Preview">
+                    </div>
+                </div>
+
+                <button class="btn-neo" style="width: 100%; max-width: none; margin-top: 20px;" onclick="submitReport()"
+                    id="btnSubmit">KIRIM SEKARANG</button>
+            </div>
+        </div>
+
+        <div id="adminPanel">
+            <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom:20px; margin-bottom: 25px;">
+                <h2 style="margin:0; font-size:1.4rem; color: var(--primary); font-weight:800; letter-spacing: 1px;">
+                    PANEL KONTROL</h2>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn-neo btn-reject" style="width: auto; margin:0; font-size: 0.8rem; padding: 10px 20px; border-radius: 8px;" onclick="showCleanupModal()">🧹 CLEANUP</button>
+                    <button class="btn-neo" style="width: auto; margin:0; background: transparent; color:var(--primary); border: 1px solid var(--primary); box-shadow:none; font-size: 0.8rem; padding: 10px 20px; border-radius: 8px;" onclick="refreshAdmin()">🔄 REFRESH</button>
+                </div>
+            </div>
+
+            <div id="cleanupModal" class="notif-overlay">
+                <div class="notif-box show">
+                    <h3 style="margin-top:0; font-size:1.2rem; font-weight:800; color:var(--primary);">Pembersihan Data</h3>
+                    <p style="font-size:0.85rem; font-weight:500; margin-bottom:20px; color:var(--text-muted); line-height: 1.5;">Fitur ini akan menghapus tautan gambar pada riwayat sebelum tanggal yang dipilih untuk menghemat database.</p>
+                    <label style="text-align:left;">Hapus Sebelum Tanggal:</label>
+                    <input type="date" id="cleanupDate" style="margin-bottom:25px;">
+                    <div style="display:flex; gap:15px;">
+                        <button class="btn-neo btn-reject" style="flex:1; font-size:0.85rem; padding:12px; border-radius:8px;" onclick="executeCleanup()">HAPUS</button>
+                        <button class="btn-neo" style="flex:1; background: transparent; color:var(--text-muted); border: 1px solid rgba(255,255,255,0.2); box-shadow:none; font-size:0.85rem; padding:12px; border-radius:8px;" onclick="document.getElementById('cleanupModal').style.display='none'">BATAL</button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 15px; margin-bottom: 30px;">
+                <button class="btn-neo" style="flex:1; margin:0; border-radius: 12px; font-size: 0.9rem; padding: 14px;" onclick="showAdminTab('pending')" id="tabPending">ANTRIAN BARU</button>
+                <button class="btn-neo" style="flex:1; margin:0; background: rgba(0,0,0,0.3); color:var(--text-muted); border: 1px solid rgba(255,255,255,0.1); box-shadow:none; border-radius: 12px; font-size: 0.9rem; padding: 14px;" onclick="showAdminTab('history')" id="tabHistory">RIWAYAT ACC</button>
+            </div>
+
+            <div class="admin-stats" id="statsPending">
+                <span style="color:var(--text-muted); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Total Antrian Masuk</span>
+                <span class="stat-count" id="requestCount">0</span>
+            </div>
+
+            <div class="admin-stats" id="statsHistory" style="display:none;">
+                <span style="color:var(--text-muted); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Total Akun ACC</span>
+                <span class="stat-count" id="historyCount">0</span>
+            </div>
+
+            <div id="filterHistoryContainer" style="display:none; flex-wrap: wrap; gap: 15px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 20px; margin-bottom: 30px;">
+                <div style="flex:1; min-width: 140px;">
+                    <label>Dari Tanggal:</label>
+                    <input type="date" id="filterStartDate" style="padding: 12px; border-radius: 8px;" onchange="loadHistoryReports()">
+                </div>
+                <div style="flex:1; min-width: 140px;">
+                    <label>Sampai Tanggal:</label>
+                    <input type="date" id="filterEndDate" style="padding: 12px; border-radius: 8px;" onchange="loadHistoryReports()">
+                </div>
+                <div style="flex:1; min-width: 200px;">
+                    <label>Cari Akun (Email/WA):</label>
+                    <div style="display:flex; gap: 10px;">
+                        <input type="text" id="filterSearchEmail" style="padding: 12px; border-radius: 8px;" placeholder="Ketik kata kunci..." onkeydown="if(event.key === 'Enter') loadHistoryReports()">
+                        <button class="btn-neo" style="width: auto; padding: 0 20px; margin: 0; font-size: 0.85rem; border-radius: 8px;" onclick="loadHistoryReports()">CARI</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="adminContent">
+                <p style="font-size:0.95rem; font-weight:500; text-align:center; color:var(--text-muted); padding: 40px 0;">Memuat data dari server...</p>
+            </div>
+
+            <div id="adminHistoryContent" style="display:none;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Setup Audio
+        let audioCtx;
+        function initAudio() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+        function playSoftSound(frequency, type, duration, volume) {
+            initAudio();
+            if (!audioCtx) return;
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.type = type; 
+            oscillator.frequency.setValueAtTime(frequency, audioCtx.currentTime);
+            gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+            oscillator.connect(gainNode); 
+            gainNode.connect(audioCtx.destination);
+            oscillator.start(); 
+            oscillator.stop(audioCtx.currentTime + duration);
+        }
+
+        // Suara yang diperhalus (sine/triangle) untuk tema elegan
+        const sound = {
+            click: () => playSoftSound(800, 'sine', 0.1, 0.05),
+            cair: () => { playSoftSound(600, 'sine', 0.1, 0.05); setTimeout(() => playSoftSound(900, 'sine', 0.15, 0.05), 80); },
+            glitch: () => playSoftSound(200, 'triangle', 0.1, 0.05),
+            pop: () => playSoftSound(1000, 'sine', 0.05, 0.03),
+            open: () => playSoftSound(500, 'sine', 0.2, 0.05)
+        };
+
+        document.addEventListener('click', initAudio, { once: true });
+
+        // Modal Logic
+        function openFormModal() { sound.open(); document.getElementById('formModal').classList.add('active'); }
+        function closeFormModal() { sound.click(); document.getElementById('formModal').classList.remove('active'); }
+        document.getElementById('formModal').addEventListener('click', function (e) { if (e.target === this) closeFormModal(); });
+
+        function openLightbox(url) { sound.click(); document.getElementById('lightboxImg').src = url; document.getElementById('lightbox').style.display = 'flex'; }
+        function closeLightbox() { sound.click(); document.getElementById('lightbox').style.display = 'none'; document.getElementById('lightboxImg').src = ''; }
+
+        // KONFIGURASI API DAN DATABASE
+        const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dsoxs3zei/image/upload";
+        const CLOUDINARY_PRESET = "man2xvoy";
+
+        const BIN_PENDING_ID = "69be23fac3097a1dd5454fdd";
+        const API_KEY_PENDING = "$2a$10$scIR2Nh0Rv3Q0cmv0ZITc.JOqPVta6IqsDHtq52lgQjvMNOlJkpZa";
+
+        const BIN_REFERRAL_ID = "69be2407b7ec241ddc8a9669";
+        const API_KEY_REFERRAL = "$2a$10$scIR2Nh0Rv3Q0cmv0ZITc.JOqPVta6IqsDHtq52lgQjvMNOlJkpZa";
+
+        const SUPABASE_URL = "https://kalskgboesvudekhuiap.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImthbHNrZ2JvZXN2dWRla2h1aWFwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5NDMwNjMsImV4cCI6MjA4ODUxOTA2M30.FqZZmN2hSQ6hbXMRS2LtSrYTyycpRq4ZTbRDLjSVrKs";
+        const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        let reloadOnClose = false;
+
+        document.getElementById('status').addEventListener('change', function (e) {
+            const inviterInput = document.getElementById('inviter');
+            if (e.target.value === 'Unrestric') {
+                inviterInput.value = '';
+                inviterInput.disabled = true;
+                inviterInput.placeholder = "Tidak tersedia untuk status ini";
+            } else {
+                inviterInput.disabled = false;
+                inviterInput.placeholder = "Masukkan jika ada";
+            }
+        });
+
+        document.getElementById('bankChoice').addEventListener('change', function (e) {
+            const otherContainer = document.getElementById('otherBankContainer');
+            if (e.target.value === 'OTHER') {
+                otherContainer.style.display = 'block';
+            } else {
+                otherContainer.style.display = 'none';
+            }
+        });
+
+        function showLoading() { document.getElementById('loadingModal').style.display = 'flex'; }
+        function hideLoading() { document.getElementById('loadingModal').style.display = 'none'; }
+
+        function showNotif(title, message, icon = "✨", shouldReload = false) {
+            if (icon === "❌" || icon === "⚠️") sound.glitch(); else sound.cair();
+            document.getElementById('notifTitle').innerText = title; 
+            document.getElementById('notifMsg').innerText = message; 
+            document.getElementById('notifIcon').innerText = icon;
+            const overlay = document.getElementById('customNotif'); 
+            const box = document.getElementById('notifBox');
+            overlay.style.display = 'flex'; 
+            setTimeout(() => { box.classList.add('show'); }, 10); 
+            reloadOnClose = shouldReload;
+        }
+
+        function closeNotif() {
+            sound.click(); 
+            const overlay = document.getElementById('customNotif'); 
+            const box = document.getElementById('notifBox');
+            box.classList.remove('show'); 
+            setTimeout(() => { overlay.style.display = 'none'; if (reloadOnClose) location.reload(); }, 400);
+        }
+
+        document.getElementById('buktiImg').addEventListener('change', function (event) {
+            const file = event.target.files[0]; 
+            const previewContainer = document.getElementById('previewContainer'); 
+            const imgPreview = document.getElementById('imgPreview');
+            if (file) { 
+                const reader = new FileReader(); 
+                reader.onload = function (e) { 
+                    imgPreview.src = e.target.result; 
+                    previewContainer.style.display = 'block'; 
+                }; 
+                reader.readAsDataURL(file); 
+            } else { 
+                imgPreview.src = ''; 
+                previewContainer.style.display = 'none'; 
+            }
+        });
+
+        async function submitReport() {
+            sound.click();
+            const email = document.getElementById('email').value.toLowerCase().trim();
+            const telepon = document.getElementById('telepon').value.trim();
+            const status = document.getElementById('status').value;
+            const inviter = document.getElementById('inviter').value.trim();
+            const fileInput = document.getElementById('buktiImg');
+            const accName = document.getElementById('accName').value.trim();
+            const accNumber = document.getElementById('accNumber').value.trim();
+
+            let bankName = document.getElementById('bankChoice').value;
+            if (bankName === 'OTHER') {
+                bankName = document.getElementById('bankNameOther').value.trim();
+            }
+
+            if (!email || !telepon || fileInput.files.length === 0) { showNotif("Data Belum Lengkap", "Pastikan semua form wajib (*) terisi dan bukti diupload.", "⚠️"); return; }
+            if (!bankName || !accName || !accNumber) { showNotif("Rekening Kosong", "Lengkapi data bank/e-wallet untuk proses pencairan.", "⚠️"); return; }
+
+            const btn = document.getElementById('btnSubmit'); btn.disabled = true; btn.innerHTML = "MEMPROSES DATA..."; showLoading();
+
+            try {
+                const formData = new FormData(); formData.append('file', fileInput.files[0]); formData.append('upload_preset', CLOUDINARY_PRESET);
+                const imgRes = await fetch(CLOUDINARY_URL, { method: 'POST', body: formData }); const imgData = await imgRes.json(); const imgUrl = imgData.secure_url;
+                const fullTimestamp = new Date().toISOString(); const reportId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+                const newReport = { id: reportId, email: email, telepon: telepon, status: status, inviter: inviter, tanggal: fullTimestamp, bukti_url: imgUrl, bank_name: bankName, acc_name: accName, acc_number: accNumber };
+
+                const getRes = await fetch(`https://api.jsonbin.io/v3/b/${BIN_PENDING_ID}/latest`, { headers: { 'X-Master-Key': API_KEY_PENDING } });
+                const getData = await getRes.json(); let currentUsers = getData.record.users || [];
+                currentUsers.push(newReport);
+                await fetch(`https://api.jsonbin.io/v3/b/${BIN_PENDING_ID}`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-Master-Key': API_KEY_PENDING }, body: JSON.stringify({ users: currentUsers }) });
+
+                hideLoading(); closeFormModal(); showNotif("BERHASIL TERKIRIM", "Laporan Anda telah diamankan ke dalam sistem antrian.", "✨", true);
+            } catch (error) { console.error(error); hideLoading(); showNotif("KONEKSI TERPUTUS", "Gagal mengirim data: " + error.message, "❌"); btn.disabled = false; btn.innerHTML = "KIRIM SEKARANG"; }
+        }
+
+        // Logika Pola Kunci (Pattern Lock)
+        const patternGrid = document.getElementById('patternGrid'); const dots = document.querySelectorAll('.pattern-dot'); const svg = document.getElementById('patternSvg');
+        let currentPattern = []; let isDrawingPattern = false; let currX = 0, currY = 0; const TARGET_PATTERN = '4569871';
+
+        function getDotCenter(dot) { const gridRect = patternGrid.getBoundingClientRect(); const dotRect = dot.getBoundingClientRect(); return { x: dotRect.left - gridRect.left + dotRect.width / 2, y: dotRect.top - gridRect.top + dotRect.height / 2 }; }
+
+        function drawLines() {
+            let html = '';
+            for (let i = 0; i < currentPattern.length - 1; i++) {
+                let p1 = getDotCenter(dots[currentPattern[i] - 1]); let p2 = getDotCenter(dots[currentPattern[i + 1] - 1]);
+                html += `<line x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}" stroke="var(--primary)" stroke-width="4" stroke-linecap="round"/>`;
+            }
+            if (isDrawingPattern && currentPattern.length > 0) {
+                let p1 = getDotCenter(dots[currentPattern[currentPattern.length - 1] - 1]);
+                html += `<line x1="${p1.x}" y1="${p1.y}" x2="${currX}" y2="${currY}" stroke="var(--primary)" stroke-width="4" stroke-linecap="round"/>`;
+            }
+            svg.innerHTML = html;
+        }
+
+        function handleInputStart(e) {
+            if (e.target.closest('.btn-neo')) return; e.preventDefault();
+            currentPattern = []; isDrawingPattern = true; dots.forEach(d => { d.classList.remove('active', 'error'); }); document.getElementById('patternMsg').innerText = "Lepaskan untuk konfirmasi akses"; handleInputMove(e);
+        }
+
+        function handleInputMove(e) {
+            if (!isDrawingPattern) return; e.preventDefault();
+            let clientX = e.touches ? e.touches[0].clientX : e.clientX; let clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            const gridRect = patternGrid.getBoundingClientRect(); currX = clientX - gridRect.left; currY = clientY - gridRect.top;
+            dots.forEach(dot => {
+                let val = parseInt(dot.getAttribute('data-val'));
+                if (!currentPattern.includes(val)) {
+                    let center = getDotCenter(dot); let dist = Math.hypot(currX - center.x, currY - center.y);
+                    if (dist < 25) { currentPattern.push(val); dot.classList.add('active'); sound.pop(); if (navigator.vibrate) navigator.vibrate(15); }
+                }
+            }); drawLines();
+        }
+
+        function handleInputEnd(e) {
+            if (!isDrawingPattern) return; isDrawingPattern = false; drawLines();
+            if (currentPattern.join('') === TARGET_PATTERN) {
+                sound.cair(); document.getElementById('patternMsg').innerText = "AKSES DITERIMA. MENGALIHKAN..."; setTimeout(() => { closePatternLock(); openAdminPanelData(); }, 400);
+            } else if (currentPattern.length > 0) {
+                sound.glitch(); document.getElementById('patternMsg').innerText = "AKSES DITOLAK!"; document.getElementById('patternMsg').style.color = "var(--secondary)";
+                dots.forEach(d => { if (currentPattern.includes(parseInt(d.getAttribute('data-val')))) { d.classList.add('error'); d.classList.remove('active'); } });
+                svg.innerHTML = svg.innerHTML.replace(/stroke="var\(--primary\)"/g, 'stroke="var(--secondary)"');
+                setTimeout(() => { currentPattern = []; drawLines(); dots.forEach(d => { d.classList.remove('error'); }); document.getElementById('patternMsg').innerText = 'Tarik garis pola rahasia'; document.getElementById('patternMsg').style.color = "var(--text-muted)"; }, 1200);
+            }
+        }
+
+        patternGrid.addEventListener('mousedown', handleInputStart); patternGrid.addEventListener('touchstart', handleInputStart, { passive: false }); document.addEventListener('mousemove', handleInputMove, { passive: false }); document.addEventListener('touchmove', handleInputMove, { passive: false }); document.addEventListener('mouseup', handleInputEnd); document.addEventListener('touchend', handleInputEnd);
+
+        function toggleAdmin() {
+            sound.click(); const panel = document.getElementById('adminPanel'); const mainContainer = document.getElementById('mainContainer'); const ctaContainer = document.querySelector('.cta-container'); const cardExample = document.querySelector('.card-example');
+            if (panel.style.display === 'block') { panel.style.display = 'none'; ctaContainer.style.display = 'flex'; cardExample.style.display = 'block'; mainContainer.classList.remove('admin-active'); return; }
+            document.getElementById('patternLockModal').style.display = 'flex'; setTimeout(() => { document.getElementById('patternBox').classList.add('show'); }, 10);
+            currentPattern = []; drawLines(); dots.forEach(d => d.classList.remove('active', 'error')); document.getElementById('patternMsg').innerText = 'Tarik garis pola rahasia'; document.getElementById('patternMsg').style.color = 'var(--text-muted)';
+        }
+
+        function closePatternLock() { sound.click(); document.getElementById('patternBox').classList.remove('show'); setTimeout(() => { document.getElementById('patternLockModal').style.display = 'none'; }, 400); }
+
+        let currentAdminTab = 'pending';
+
+        function showAdminTab(tab) {
+            sound.click(); currentAdminTab = tab;
+            const btnPending = document.getElementById('tabPending'); const btnHistory = document.getElementById('tabHistory');
+            const statsPending = document.getElementById('statsPending'); const statsHistory = document.getElementById('statsHistory');
+            const contentPending = document.getElementById('adminContent'); const contentHistory = document.getElementById('adminHistoryContent');
+            const filterHistory = document.getElementById('filterHistoryContainer');
+
+            if (tab === 'pending') {
+                btnPending.style.background = 'var(--gold-gradient)'; btnPending.style.color = '#000'; btnPending.style.borderColor = 'transparent'; btnPending.style.boxShadow = '0 8px 20px rgba(212, 175, 55, 0.3)';
+                btnHistory.style.background = 'rgba(0,0,0,0.3)'; btnHistory.style.color = 'var(--text-muted)'; btnHistory.style.borderColor = 'rgba(255,255,255,0.1)'; btnHistory.style.boxShadow = 'none';
+                statsPending.style.display = 'flex'; statsHistory.style.display = 'none';
+                filterHistory.style.display = 'none';
+                contentPending.style.display = 'block'; contentHistory.style.display = 'none';
+                loadPendingReports();
+            } else {
+                btnHistory.style.background = 'var(--gold-gradient)'; btnHistory.style.color = '#000'; btnHistory.style.borderColor = 'transparent'; btnHistory.style.boxShadow = '0 8px 20px rgba(212, 175, 55, 0.3)';
+                btnPending.style.background = 'rgba(0,0,0,0.3)'; btnPending.style.color = 'var(--text-muted)'; btnPending.style.borderColor = 'rgba(255,255,255,0.1)'; btnPending.style.boxShadow = 'none';
+                statsHistory.style.display = 'flex'; statsPending.style.display = 'none';
+                filterHistory.style.display = 'flex';
+                contentHistory.style.display = 'block'; contentPending.style.display = 'none';
+
+                if (!document.getElementById('filterStartDate').value || !document.getElementById('filterEndDate').value) {
+                    const today = new Date();
+                    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+                    document.getElementById('filterStartDate').value = firstDay.toLocaleDateString('en-CA');
+                    document.getElementById('filterEndDate').value = today.toLocaleDateString('en-CA');
+                }
+
+                loadHistoryReports();
+            }
+        }
+
+        function refreshAdmin() { if (currentAdminTab === 'pending') loadPendingReports(); else loadHistoryReports(); }
+
+        async function loadHistoryReports() {
+            sound.click(); const content = document.getElementById('adminHistoryContent'); const countBadge = document.getElementById('historyCount');
+            content.innerHTML = '<p style="color:var(--text-muted); font-weight:500; text-align:center; padding: 40px 0;">Sinkronisasi data riwayat...</p>';
+
+            const startDate = document.getElementById('filterStartDate').value;
+            const endDate = document.getElementById('filterEndDate').value;
+            const searchQ = document.getElementById('filterSearchEmail') ? document.getElementById('filterSearchEmail').value.trim() : '';
+
+            try {
+                let query = db.from('linked_users').select('*').order('tanggal', { ascending: false });
+
+                if (startDate && endDate) {
+                    const startIso = startDate + "T00:00:00.000Z";
+                    const endIso = endDate + "T23:59:59.999Z";
+                    query = query.gte('tanggal', startIso).lte('tanggal', endIso);
+                }
+
+                if (searchQ) {
+                    if (searchQ.includes('@')) {
+                        query = query.ilike('email', `%${searchQ}%`);
+                    } else {
+                        query = query.or(`email.ilike.%${searchQ}%,whatsapp.ilike.%${searchQ}%`);
+                    }
+                }
+
+                const { data, error } = await query;
+                if (error) throw error;
+                const users = data || []; countBadge.innerText = users.length;
+                if (users.length === 0) { content.innerHTML = "<div style='text-align:center; padding: 40px; border-radius:16px; border: 1px dashed rgba(255,255,255,0.1); color:var(--text-muted);'>Belum ada catatan riwayat.</div>"; return; }
+                
+                let html = '<div class="reports-grid">';
+                users.forEach((u) => {
+                    let historyObj = [];
+                    try {
+                        historyObj = JSON.parse(u.status);
+                        if (!Array.isArray(historyObj)) throw new Error();
+                    } catch (e) {
+                        historyObj = [{ status: u.status, tanggal: u.tanggal }];
+                    }
+
+                    const reversedHistory = [...historyObj].reverse();
+                    const latestStatus = reversedHistory[0].status;
+
+                    let badgeClass = 'status-badge';
+                    const mainStatLower = latestStatus.toLowerCase();
+                    if (mainStatLower.includes('new acc')) badgeClass += ' new';
+                    else if (mainStatLower.includes('restric') || mainStatLower.includes('banned')) badgeClass += ' reject';
+
+                    let mainTime = u.tanggal;
+                    try { const dateObj = new Date(u.tanggal); if (!isNaN(dateObj)) { const options = { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }; mainTime = new Intl.DateTimeFormat('id-ID', options).format(dateObj) + ' WIB'; } } catch (e) { }
+
+                    let historyHTML = `<div style="margin-top:20px; border-top: 1px solid rgba(255,255,255,0.05); padding-top:20px;">
+                        <div style="font-size:0.75rem; text-transform:uppercase; font-weight:700; margin-bottom: 15px; display:flex; justify-content:space-between; align-items:center; color:var(--text-muted);">
+                            <span>Log Status</span>
+                            <button class="btn-neo" style="width:auto; padding: 6px 14px; font-size: 0.7rem; background: rgba(255,255,255,0.05); color:var(--text-main); box-shadow: none; border-radius:30px;" onclick="appendHistoryStatus('${u.email}')">UBAH STATUS</button>
+                        </div>
+                        <div style="display:flex; flex-direction:column; gap:12px;">`;
+
+                    historyObj.forEach((h, i) => {
+                        let subBadgeClass = 'status-badge';
+                        const statLower = h.status.toLowerCase();
+                        if (statLower.includes('new acc')) subBadgeClass += ' new';
+                        else if (statLower.includes('restric') || statLower.includes('banned')) subBadgeClass += ' reject';
+
+                        let displayTime = h.tanggal;
+                        try { const dateObj = new Date(h.tanggal); if (!isNaN(dateObj)) { const options = { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }; displayTime = new Intl.DateTimeFormat('id-ID', options).format(dateObj) + ' WIB'; } } catch (e) { }
+
+                        const isFirst = (i === 0);
+                        const isLatest = (i === historyObj.length - 1);
+                        const labelText = isFirst ? 'Entri Pertama' : (isLatest ? 'Terbaru' : 'Pembaruan');
+                        const boxStyle = isLatest ? "border: 1px solid rgba(212, 175, 55, 0.4); background: rgba(0,0,0,0.3);" : "border: 1px dashed rgba(255,255,255,0.1); background: transparent;";
+
+                        let thumbHtml = '';
+                        if (h.bukti_url) {
+                            thumbHtml = `<div style="margin-top: 12px;"><div style="font-size:0.65rem; font-weight:600; margin-bottom: 6px; color:var(--text-muted); text-transform:uppercase;">Lampiran:</div><img src="${h.bukti_url}" class="preview-img-admin" alt="Bukti" onclick="openLightbox('${h.bukti_url}')" title="Perbesar gambar"></div>`;
+                        } else if (isFirst && u.bukti_url && !historyObj.some(item => item.bukti_url)) {
+                            thumbHtml = `<div style="margin-top: 12px;"><div style="font-size:0.65rem; font-weight:600; margin-bottom: 6px; color:var(--text-muted); text-transform:uppercase;">Lampiran:</div><img src="${u.bukti_url}" class="preview-img-admin" alt="Bukti" onclick="openLightbox('${u.bukti_url}')" title="Perbesar gambar"></div>`;
+                        }
+
+                        historyHTML += `
+                            <div style="${boxStyle} padding: 15px; border-radius: 12px; display:flex; justify-content:space-between; align-items:start; flex-wrap:wrap; gap: 10px;">
+                                <div style="line-height:1.4; flex: 1;">
+                                    <span style="font-size: 0.65rem; font-weight: 600; color: var(--primary); padding: 2px 6px; border: 1px solid rgba(212,175,55,0.2); border-radius:4px; display: inline-block; margin-bottom: 6px;">${labelText}</span><br>
+                                    <span style="font-size: 0.8rem; font-weight: 500; color: var(--text-muted);">${displayTime}</span>
+                                    ${thumbHtml}
+                                </div>
+                                <span class="${subBadgeClass}">${h.status}</span>
+                            </div>
+                        `;
+                    });
+
+                    historyHTML += `</div></div>`;
+
+                    html += `<div class="report-item">
+                                <div class="report-header">
+                                    <div style="font-size: 0.75rem; font-weight:600; color:var(--text-muted);"><span style="color:var(--primary);">⟳</span> ${mainTime}</div>
+                                    <span class="${badgeClass}">${latestStatus}</span>
+                                </div>
+                                <div style="margin-bottom:15px;">
+                                    <div style="font-size:0.75rem; text-transform:uppercase; font-weight:600; color:var(--text-muted); margin-bottom:4px;">Alamat Email</div>
+                                    <div style="font-size:1.1rem; font-weight:700; color:#fff; word-break: break-all;">${u.email}</div>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                                    <div>
+                                        <div style="font-size:0.7rem; text-transform:uppercase; font-weight:600; color:var(--text-muted); margin-bottom:4px;">WhatsApp</div>
+                                        <div style="font-weight:600; font-size:0.95rem; color:var(--primary);">${u.whatsapp || '-'}</div>
+                                    </div>
+                                </div>
+                                ${historyHTML}
+                            </div>`;
+                });
+                html += '</div>'; content.innerHTML = html;
+            } catch (e) { console.error(e); content.innerHTML = "<p style='color:var(--secondary); font-weight:600; text-align:center;'>Gagal menghubungkan ke database.</p>"; countBadge.innerText = "0"; }
+        }
+
+        async function appendHistoryStatus(email) {
+            const newStatusRaw = prompt("Status pembaruan untuk " + email + "\n(Contoh: Banned, Restric, Unrestric)");
+            if (!newStatusRaw) return;
+            const newStatus = newStatusRaw.trim();
+            if (!newStatus) return;
+
+            sound.click();
+            try {
+                const { data: existingUser, error: fetchErr } = await db.from('linked_users').select('status, tanggal').eq('email', email).single();
+                if (fetchErr) throw fetchErr;
+
+                let historyObj = [];
+                if (existingUser && existingUser.status) {
+                    try {
+                        historyObj = JSON.parse(existingUser.status);
+                        if (!Array.isArray(historyObj)) throw new Error();
+                    } catch (e) {
+                        historyObj = [{ status: existingUser.status, tanggal: existingUser.tanggal }];
+                    }
+                }
+                const newTanggal = new Date().toISOString();
+                historyObj.push({ status: newStatus, tanggal: newTanggal });
+
+                const { error } = await db.from('linked_users').update({
+                    status: JSON.stringify(historyObj),
+                    tanggal: newTanggal
+                }).eq('email', email);
+
+                if (error) throw new Error("Database error: " + error.message);
+
+                showNotif("STATUS DIPERBARUI", `Catatan akun ${email} berhasil diupdate.`, "✨");
+                loadHistoryReports(); 
+            } catch (e) {
+                console.error(e);
+                showNotif("ERROR KONEKSI", e.message, "❌");
+            }
+        }
+
+        function openAdminPanelData() {
+            sound.open(); const panel = document.getElementById('adminPanel'); const mainContainer = document.getElementById('mainContainer'); const ctaContainer = document.querySelector('.cta-container'); const cardExample = document.querySelector('.card-example');
+            panel.style.display = 'block'; ctaContainer.style.display = 'none'; cardExample.style.display = 'none'; mainContainer.classList.add('admin-active'); loadPendingReports(); showAdminTab('pending');
+        }
+
+        async function loadPendingReports() {
+            sound.click(); const content = document.getElementById('adminContent'); const countBadge = document.getElementById('requestCount'); content.innerHTML = '<p style="color:var(--text-muted); font-weight:500; text-align:center; padding: 40px 0;">Sinkronisasi antrian baru...</p>';
+            try {
+                const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_PENDING_ID}/latest`, { headers: { 'X-Master-Key': API_KEY_PENDING } }); const data = await res.json(); const users = data.record.users || []; countBadge.innerText = users.length;
+                if (users.length === 0) { content.innerHTML = "<div style='text-align:center; padding: 40px; border-radius:16px; border: 1px dashed rgba(255,255,255,0.1); color:var(--text-muted);'>Tidak ada antrian laporan masuk.</div>"; return; }
+                
+                let html = '<div class="reports-grid">';
+                users.forEach((u, index) => {
+                    const isNew = (u.status === 'New Acc'); 
+                    let badgeClass = 'status-badge';
+                    if (isNew) badgeClass += ' new';
+
+                    const inviterCode = u.inviter ? `<span style="color:var(--primary); font-weight:700;">${u.inviter}</span>` : '-';
+                    let displayTime = u.tanggal; try { const dateObj = new Date(u.tanggal); if (!isNaN(dateObj)) { const options = { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }; displayTime = new Intl.DateTimeFormat('id-ID', options).format(dateObj) + ' WIB'; } } catch (e) { }
+                    
+                    const bankBoxHTML = u.bank_name ? `<div class="bank-info-box-admin"><div class="bank-title">Rekening Tujuan</div><div class="bank-number">${u.bank_name} - ${u.acc_number}</div><div class="bank-name">a/n ${u.acc_name}</div></div>` : '<div class="bank-info-box-admin" style="border-color:var(--secondary); background:rgba(231,76,60,0.05);"><div class="bank-title" style="background:var(--secondary); color:#fff; border-color:var(--secondary);">KOSONG</div><div style="color:var(--secondary); font-size:0.8rem; margin-top:10px;">Data rekening tidak disertakan</div></div>';
+                    
+                    html += `<div class="report-item">
+                        <div class="report-header">
+                            <div style="font-size: 0.75rem; font-weight:600; color:var(--text-muted);"><span style="color:var(--primary);">⟳</span> ${displayTime}</div>
+                            <span class="${badgeClass}">${u.status}</span>
+                        </div>
+                        <div style="margin-bottom:15px;">
+                            <div style="font-size:0.75rem; text-transform:uppercase; font-weight:600; color:var(--text-muted); margin-bottom:4px;">Alamat Email</div>
+                            <div style="font-size:1.15rem; font-weight:700; color:#fff; word-break: break-all;">${u.email}</div>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; margin-bottom:15px; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                            <div>
+                                <div style="font-size:0.7rem; text-transform:uppercase; font-weight:600; color:var(--text-muted); margin-bottom:4px;">WhatsApp</div>
+                                <div style="font-weight:600; font-size:0.95rem; color:var(--primary);">${u.telepon}</div>
+                            </div>
+                            <div style="text-align:right;">
+                                <div style="font-size:0.7rem; text-transform:uppercase; font-weight:600; color:var(--text-muted); margin-bottom:4px;">Kode Ref</div>
+                                <div style="font-size:0.95rem;">${inviterCode}</div>
+                            </div>
+                        </div>
+                        ${bankBoxHTML}
+                        <div class="admin-thumb-container">
+                            <img src="${u.bukti_url}" class="preview-img-admin" alt="Bukti" onclick="openLightbox('${u.bukti_url}')" title="Perbesar">
+                            <div style="font-size:0.8rem; font-weight:500; line-height:1.4; color:var(--text-muted);">
+                                <span style="text-transform:uppercase; font-weight:700; color:var(--primary); font-size:0.7rem;">Lampiran Sistem</span><br>
+                                Klik thumbnail untuk melihat detail transaksi.
+                            </div>
+                        </div>
+                        <div style="display:flex; gap:12px; margin-top:auto; padding-top:15px;">
+                            <button class="btn-neo" onclick="processAcc(${index})" style="flex:1; border-radius:12px; padding:12px; font-size: 0.95rem;">SETUJUI</button>
+                            <button class="btn-neo btn-reject" onclick="processTolak(${index})" style="flex:1; border-radius:12px; padding:12px; font-size: 0.95rem;">TOLAK</button>
+                        </div>
+                    </div>`;
+                });
+                html += '</div>'; content.innerHTML = html; window.pendingUsers = users;
+            } catch (e) { content.innerHTML = "<p style='color:var(--secondary); font-weight:600; text-align:center;'>Terjadi kesalahan saat memuat antrian.</p>"; countBadge.innerText = "0"; }
+        }
+
+        async function processAcc(index) {
+            sound.click();
+            const userToAcc = window.pendingUsers[index];
+            if (!confirm(`Konfirmasi persetujuan untuk ${userToAcc.email}?`)) return;
+            const NAMA_TABEL_SUPABASE = 'linked_users';
+
+            const emailNormal = userToAcc.email.toLowerCase().trim();
+            let inviterCode = userToAcc.inviter ? userToAcc.inviter.trim().toUpperCase() : "";
+            if ((userToAcc.status === "New Acc" || userToAcc.status === "Unrestric New") && inviterCode === "") {
+                inviterCode = "ZEN";
+            }
+
+            try {
+                let currentHistory = [];
+                const { data: existingUser } = await db.from(NAMA_TABEL_SUPABASE).select('status, tanggal').eq('email', emailNormal).maybeSingle();
+                if (existingUser && existingUser.status) {
+                    try {
+                        currentHistory = JSON.parse(existingUser.status);
+                        if (!Array.isArray(currentHistory)) throw new Error();
+                    } catch (e) {
+                        currentHistory = [{ status: existingUser.status, tanggal: existingUser.tanggal }];
+                    }
+                }
+
+                currentHistory.push({ status: userToAcc.status, tanggal: userToAcc.tanggal, bukti_url: userToAcc.bukti_url });
+                const finalStatusStr = JSON.stringify(currentHistory);
+
+                const { error } = await db.from(NAMA_TABEL_SUPABASE).upsert([
+                    { email: emailNormal, whatsapp: userToAcc.telepon, status: finalStatusStr, tanggal: userToAcc.tanggal, bank_name: userToAcc.bank_name, acc_name: userToAcc.acc_name, acc_number: userToAcc.acc_number, bukti_url: userToAcc.bukti_url }
+                ], { onConflict: 'email' });
+
+                if (error) throw new Error("Sistem Database: " + error.message);
+
+                if (inviterCode !== "" && (userToAcc.status === "New Acc" || userToAcc.status === "Unrestric New")) {
+                    try {
+                        const refRes = await fetch(`https://api.jsonbin.io/v3/b/${BIN_REFERRAL_ID}/latest`, {
+                            headers: { 'X-Master-Key': API_KEY_REFERRAL }
+                        });
+
+                        if (!refRes.ok) throw new Error(`Status: ${refRes.status}`);
+                        const refData = await refRes.json();
+                        let existingRecord = refData.record || {};
+                        let currentUsers = existingRecord.users || [];
+                        const isDuplicate = currentUsers.some(u => u?.email === emailNormal);
+
+                        if (!isDuplicate) {
+                            currentUsers.push({ code: inviterCode, email: emailNormal });
+                            const updatedRecord = { ...existingRecord, users: currentUsers };
+                            const putRes = await fetch(`https://api.jsonbin.io/v3/b/${BIN_REFERRAL_ID}`, {
+                                method: 'PUT',
+                                headers: { 'Content-Type': 'application/json', 'X-Master-Key': API_KEY_REFERRAL },
+                                body: JSON.stringify(updatedRecord)
+                            });
+                            if (!putRes.ok) throw new Error("Jaringan Referral bermasalah.");
+                        }
+                    } catch (refError) {
+                        console.error("Referral Error:", refError);
+                    }
+                }
+
+                await removeLocalAndServer(index);
+                showNotif("DISETUJUI", `Akun berhasil diarsip.`, "✨");
+                loadPendingReports();
+            } catch (e) { console.error(e); showNotif("PROSES GAGAL", e.message, "❌"); }
+        }
+
+        async function processTolak(index) {
+            sound.glitch(); const user = window.pendingUsers[index]; if (!confirm("Tolak laporan ini secara permanen?")) return;
+            let hp = user.telepon.replace(/\D/g, ''); if (hp.startsWith('0')) hp = '62' + hp.slice(1); else if (!hp.startsWith('62')) hp = '62' + hp;
+            const pesan = encodeURIComponent("Halo, mohon maaf laporan Success Rental Anda kami tolak karena data/bukti kurang valid. Silakan cek kembali panduan dan ajukan ulang jika diperlukan.");
+            window.open(`https://wa.me/${hp}?text=${pesan}`, '_blank'); await removeLocalAndServer(index); loadPendingReports();
+        }
+
+        async function removeLocalAndServer(index) { window.pendingUsers.splice(index, 1); await fetch(`https://api.jsonbin.io/v3/b/${BIN_PENDING_ID}`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-Master-Key': API_KEY_PENDING }, body: JSON.stringify({ users: window.pendingUsers }) }); }
+
+        function showCleanupModal() {
+            sound.click();
+            document.getElementById('cleanupModal').style.display = 'flex';
+        }
+
+        async function executeCleanup() {
+            sound.click();
+            const dateInput = document.getElementById('cleanupDate').value;
+            if (!dateInput) {
+                alert("Harap tentukan batas tanggal terlebih dahulu.");
+                return;
+            }
+
+            if (!confirm(`Tindakan ini akan menghapus tautan gambar bukti yang diunggah sebelum atau pada tanggal ${dateInput}. Lanjutkan?`)) return;
+
+            const cutoffDate = new Date(dateInput + "T23:59:59.999Z");
+
+            try {
+                content = document.getElementById('adminHistoryContent');
+                content.innerHTML = '<p style="text-align:center; font-weight:600; color:var(--primary); padding: 40px 0;">Menjalankan proses pembersihan file media...</p>';
+                document.getElementById('cleanupModal').style.display = 'none';
+
+                const { data: allUsers, error: fetchErr } = await db.from('linked_users').select('id, email, status, bukti_url');
+                if (fetchErr) throw fetchErr;
+
+                let updatedCount = 0;
+
+                for (let u of allUsers) {
+                    let needsUpdate = false;
+                    let historyObj = [];
+
+                    try {
+                        historyObj = JSON.parse(u.status);
+                        if (!Array.isArray(historyObj)) historyObj = [{ status: u.status, tanggal: u.tanggal }];
+                    } catch (e) {
+                        historyObj = [{ status: u.status, tanggal: u.tanggal }];
+                    }
+
+                    historyObj = historyObj.map(h => {
+                        if (h.bukti_url) {
+                            const hDate = new Date(h.tanggal);
+                            if (hDate <= cutoffDate) {
+                                delete h.bukti_url;
+                                needsUpdate = true;
+                            }
+                        }
+                        return h;
+                    });
+
+                    let newUrl = u.bukti_url;
+                    if (needsUpdate) {
+                        newUrl = null;
+                    }
+
+                    if (needsUpdate || (u.bukti_url && !historyObj.some(i => i.bukti_url))) {
+                        await db.from('linked_users').update({
+                            status: JSON.stringify(historyObj),
+                            bukti_url: null
+                        }).eq('id', u.id);
+                        updatedCount++;
+                    }
+                }
+
+                showNotif("PEMBERSIHAN SELESAI", `File media dari ${updatedCount} entri berhasil dihapus dari arsip.`, "✨");
+                if (currentAdminTab === 'history') loadHistoryReports();
+            } catch (e) {
+                console.error(e);
+                showNotif("ERROR", e.message, "❌");
+                if (currentAdminTab === 'history') loadHistoryReports();
+            }
+        }
+    </script>
+</body>
+
+</html>
